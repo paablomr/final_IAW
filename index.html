@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trabajo final</title>
+</head>
+<body>
+Introducir coeficiente a:
+<input type="number" name="numeroA" id="numeroA">
+<br>
+Introducir coeficiente b:
+<input type="number" name="numeroB" id="numeroB">
+<br>
+Introducir coeficiente c:
+<input type="number" name="numeroC" id="numeroC">
+<br>
+<input type="submit" value="Enviar" id="enviar_info">
+
+<table id="table" border="1px">
+    <tr>
+        <th>x</th>
+        <th>y</th>
+    </tr>
+</table>
+</body>
+  <script type="text/javascript">
+      var xhr = new XMLHttpRequest();
+
+      var enviarinfo = document.getElementById("enviar_info");
+      enviarinfo.addEventListener("click",enviarCoeficientes);
+
+      function enviarCoeficientes() {
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST","ejerfinal.php",true);
+          var a = document.getElementById("numeroA").value;
+          var b = document.getElementById("numeroB").value;
+          var c = document.getElementById("numeroC").value;
+          xhr.onreadystatechange = function(){
+              if ((xhr.status == 200) && (xhr.readyState == 4)){
+                  console.log(xhr.response);
+                  document.getElementById("table").innerHTML+=xhr.response;
+              }
+          }
+          xhr.send(JSON.stringify({a,b,c}));
+
+      }
+  </script>
+
+  </body>
+  </html>
